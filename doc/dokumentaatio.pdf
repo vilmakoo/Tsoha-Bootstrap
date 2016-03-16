@@ -1,0 +1,5 @@
+1. Johdanto
+
+Työn aiheena on muistilista. Tarkoitus on pystyä listaamaan päivän askareita muistiin siten, että ne ovat loogisessa järjestyksessä askareen tärkeyden mukaan. Askareita voi luokitella myös eri ryhmiin ja luokilla voi olla aliluokkia. Järjestelmällä voi olla useita eri käyttäjiä.
+
+Työ toteutetaan laitoksen users-palvelimella. Kielenä toimii PHP ja tietokantana PostgreSQL.
