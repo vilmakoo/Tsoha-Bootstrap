@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Muokkaa tehtävää pyykinpesu</h1>
+
+  <form>
+    <div class="form-group">
+      <label>Kategoria</label>
+      <input type="text" class="form-control" value="Kotityö">
+    </div>
+      <div class="form-group">
+      <label>Tärkeysaste</label>
+      <input type="text" class="form-control" value="tärkeä">
+    </div>
+    <div class="form-group">
+      <label>Suoritettu</label>
+      <input type="text" class="form-control" value="ei">
+    </div>
+    <div class="form-group">
+      <label>Deadline</label>
+      <input type="text" class="form-control" value="22.3.2013">
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Tallenna</button>
+    </div>
+  </form>
+{% endblock %}

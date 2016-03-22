@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Kirjaudu sisään</h1>
+
+<!-- Kaikki lomakkeen elementit form-tagin sisään -->
+<form class="form-inline">
+    <div class="form-group">
+        <label class="sr-only" for="exampleInputUsername">Käyttäjätunnus</label>
+        <input type="text" class="form-control" id="exampleInputUsername" placeholder="Käyttäjätunnus">
+    </div>
+    <div class="form-group">
+        <label class="sr-only" for="exampleInputPassword3">Saladana</label>
+        <input type="password" class="form-control" id="exampleInputPassword" placeholder="Salasana">
+    </div>
+    <button type="submit" class="btn btn-primary">Kirjaudu sisään</button>
+</form>
+{% endblock %}

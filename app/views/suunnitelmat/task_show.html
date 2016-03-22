@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Pyykinpesu</h1>
+  <!-- Painikkeet tähän -->
+  <p>
+      <button class="btn btn-primary active">Merkitse suoritetuksi</button>
+      <br>
+      <br>
+      <a href="#" class="btn btn-default">Muokkaa</a> <button class="btn btn-danger">Poista</button>
+  </p>
+  <!-- Tiedot tulee listana tähän -->
+  <ul>
+    <li><strong>Tehtävä:</strong> Pyykinpesu</li>
+    <li><strong>Kategoria:</strong> Kotityö</li>
+    <li><strong>Tärkeysaste:</strong> tärkeä</li>
+    <li><strong>Suoritettu:</strong> ei</li>
+    <li><strong>Lisäyspäivä:</strong> 22.3.2016</li>
+    <li><strong>Deadline:</strong> 22.3.2016</li>
+  </ul>
+{% endblock %}
