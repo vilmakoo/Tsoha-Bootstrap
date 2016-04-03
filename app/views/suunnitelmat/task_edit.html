@@ -1,15 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
   <h1>Muokkaa tehtävää pyykinpesu</h1>
-
+<!-- Lomake tehtävän muokkaamista varten -->
   <form>
     <div class="form-group">
       <label>Kategoria</label>
       <input type="text" class="form-control" value="Kotityö">
     </div>
       <div class="form-group">
+      <label>Kuvaus</label>
+      <input type="text" class="form-control" value="Pese lakanat">
+    </div>
+      <div class="form-group">
       <label>Tärkeysaste</label>
-      <input type="text" class="form-control" value="tärkeä">
+      <input type="text" class="form-control" value="5">
     </div>
     <div class="form-group">
       <label>Suoritettu</label>
