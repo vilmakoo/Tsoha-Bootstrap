@@ -10,6 +10,9 @@
 * [Linkki dokumentaatiooni](doc/dokumentaatio.pdf)
 
 * [Kirjautumissivu](https://vikangas.users.cs.helsinki.fi/tsoha/login)
+
 * [Tehtävälista](https://vikangas.users.cs.helsinki.fi/tsoha/task)
+
 * [Tehtävän esittelysivu](https://vikangas.users.cs.helsinki.fi/tsoha/task/1)
+
 * [Tehtävän muokkaussivu](https://vikangas.users.cs.helsinki.fi/tsoha/task/1/edit)
