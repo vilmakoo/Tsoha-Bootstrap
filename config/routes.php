@@ -9,7 +9,7 @@ $routes->get('/hiekkalaatikko', function() {
 });
 
 $routes->get('/task', function() {
-    HelloWorldController::task_list();
+    TaskController::index();
 });
 $routes->get('/task/1', function() {
     HelloWorldController::task_show();
