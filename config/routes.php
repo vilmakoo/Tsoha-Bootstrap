@@ -1,7 +1,7 @@
 <?php
 
 $routes->get('/', function() {
-    HelloWorldController::index();
+    TaskController::index();
 });
 
 $routes->get('/hiekkalaatikko', function() {
@@ -11,10 +11,27 @@ $routes->get('/hiekkalaatikko', function() {
 $routes->get('/task', function() {
     TaskController::index();
 });
-$routes->get('/task/1', function() {
+
+$routes->post('/task', function(){
+  TaskController::store();
+});
+
+$routes->get('/task/new', function(){
+  TaskController::create();
+});
+
+$routes->get('/task/:id', function($id) {
+    TaskController::show($id);
+});
+
+$routes->get('/task/list', function() {
+    HelloWorldController::task_list();
+});
+
+$routes->get('/task/show', function() {
     HelloWorldController::task_show();
 });
-$routes->get('/task/1/edit', function() {
+$routes->get('/task/edit', function() {
     HelloWorldController::task_edit();
 });
 

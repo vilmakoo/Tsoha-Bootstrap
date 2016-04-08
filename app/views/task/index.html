@@ -16,7 +16,7 @@
     <thead>
         <tr>
             <th>Nimi</th>
-            <th>Kategoria</th>
+            <th>Kategoriat</th>
             <th>Tärkeysaste</th>
             <th>Status</th>
             <th>Deadline</th>
@@ -28,12 +28,19 @@
         {% for task in tasks %}
         <tr>
             <td><a href="{{base_path}}/task/{{task.id}}">{{task.name}}</td>
-            <td>Kotityö</td>
-            <td>5</td>
-            <td>kesken</td>
-            <td>22.3.2016</td>
-            <th><a class="btn btn-default btn-sm" href="#">Muokkaa</a> <a class="btn btn-danger btn-sm" href="#">Poista</a></th>
+            <td>Kategoria</td> <!-- tähän pitäis tulla lista tehtävän kategorioista -->
+            <td>{{task.priority}}</td>
+            <td>
+                {% if task.done %}
+                <label class="label label-success">suoritettu
+              {% else %}
+                <label class="label label-danger">kesken
+              {% endif %}
+                </td>
+            <td>{{task.deadline}}</td>
+            <td><a class="btn btn-default btn-sm" href="{{base_path}}/task/{{task.id}}/edit">Muokkaa</a></td>
         </tr>
+        {% endfor %}
     </tbody>
 </table>
 {% endblock %}

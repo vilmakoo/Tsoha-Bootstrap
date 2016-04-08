@@ -11,8 +11,8 @@
 
 * [Kirjautumissivu](https://vikangas.users.cs.helsinki.fi/tsoha/login)
 
-* [Tehtävälista](https://vikangas.users.cs.helsinki.fi/tsoha/task)
+* [Tehtävälista](https://vikangas.users.cs.helsinki.fi/tsoha/task/list)
 
-* [Tehtävän esittelysivu](https://vikangas.users.cs.helsinki.fi/tsoha/task/1)
+* [Tehtävän esittelysivu](https://vikangas.users.cs.helsinki.fi/tsoha/task/show)
 
-* [Tehtävän muokkaussivu](https://vikangas.users.cs.helsinki.fi/tsoha/task/1/edit)
+* [Tehtävän muokkaussivu](https://vikangas.users.cs.helsinki.fi/tsoha/task/edit)
