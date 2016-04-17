@@ -36,9 +36,9 @@ class Task extends BaseModel {
         return $errors;
     }
 
-    public static function all($user_id) {
-        $query = DB::connection()->prepare('SELECT * FROM Task WHERE actor_id = :user_id');
-        $query->execute();
+    public static function all($actor_id) {
+        $query = DB::connection()->prepare('SELECT * FROM Task WHERE actor_id = :actor_id');
+        $query->execute(array('actor_id' => $actor_id));
         $rows = $query->fetchAll();
         $tasks = array();
 
@@ -82,16 +82,16 @@ class Task extends BaseModel {
     }
 
     public function save() {
-        $query = DB::connection()->prepare('INSERT INTO Task (name, actor_id, description, done, priority, added, deadline) VALUES (:name, :actor_id, :description, :done, :priority, :added, :deadline) RETURNING id');
-        $query->execute(array('name' => $this->name, 'actor_id' => $this->actor_id, 'description' => $this->description, 'done' => $this->done, 'priority' => $this->priority, 'added' => $this->added, 'deadline' => $this->deadline));
+        $query = DB::connection()->prepare('INSERT INTO Task (name, actor_id, description, priority, added, deadline) VALUES (:name, :actor_id, :description, :priority, :added, :deadline) RETURNING id');
+        $query->execute(array('name' => $this->name, 'actor_id' => $this->actor_id, 'description' => $this->description, 'priority' => $this->priority, 'added' => $this->added, 'deadline' => $this->deadline));
 
         $row = $query->fetch();
         $this->id = $row['id'];
     }
 
     public function update($id) {
-        $query = DB::connection()->prepare('UPDATE Task (name, description, done, priority, deadline) VALUES (:name, :description, :done, :priority, :deadline) WHERE id = :id RETURNING id');
-        $query->execute(array('name' => $this->name, 'description' => $this->description, 'done' => $this->done, 'priority' => $this->priority, 'deadline' => $this->deadline));
+        $query = DB::connection()->prepare('UPDATE Task (name, description, priority, deadline) VALUES (:name, :description, ::priority, :deadline) WHERE id = :id RETURNING id');
+        $query->execute(array('name' => $this->name, 'description' => $this->description, 'priority' => $this->priority, 'deadline' => $this->deadline));
         
         $row = $query->fetch();
         $this->id = $row['id'];
@@ -99,5 +99,6 @@ class Task extends BaseModel {
     
     public function destroy($id) {
         $query = DB::connection()->prepare('DELETE FROM Task WHERE id = :id');
+        $query->execute(array('id' => $this->id));
     }
 }

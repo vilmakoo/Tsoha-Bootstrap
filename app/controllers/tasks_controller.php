@@ -3,15 +3,20 @@
 class TaskController extends BaseController {
 
     public static function index() {
-        $tasks = Task::all();
+        $user = self::get_user_logged_in();
+        $user_id = $user->id;
+        $tasks = Task::all($user_id);
         View::make('task/index.html', array('tasks' => $tasks));
     }
 
     public static function store() {
         $params = $_POST;
+        $user = self::get_user_logged_in();
+        $user_id = $user->id;
+        
         $attributes = array(
             'name' => $params['name'],
-            'actor_id' => 1,
+            'actor_id' => $user_id,
             'description' => $params['description'],
             // kategoriat!! miten
             'done' => false,
@@ -73,7 +78,8 @@ class TaskController extends BaseController {
 
     public static function destroy($id) {
         $task = new Task(array('id' => $id));
-        $task->destroy();
+        $task_id = $task->id;
+        $task->destroy($task_id);
 
         Redirect::to('/task', array('message' => 'Tehtävä on poistettu!'));
     }
