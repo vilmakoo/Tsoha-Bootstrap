@@ -7,12 +7,14 @@
 # Yleisiä linkkejä:
 
 * [Linkki sovellukseeni](https://vikangas.users.cs.helsinki.fi/tsoha)
+
+Sisään voi kirjautua käyttäjätunnuksella "testikäyttäjä" ja salasanalla "salasana1".
+
 * [Linkki dokumentaatiooni](doc/dokumentaatio.pdf)
 
+# Näkymäsuunnitelmat:
+
 * [Kirjautumissivu](https://vikangas.users.cs.helsinki.fi/tsoha/login)
-
-* [Tehtävälista](https://vikangas.users.cs.helsinki.fi/tsoha/task/list)
-
-* [Tehtävän esittelysivu](https://vikangas.users.cs.helsinki.fi/tsoha/task/show)
-
-* [Tehtävän muokkaussivu](https://vikangas.users.cs.helsinki.fi/tsoha/task/edit)
+* [Tehtävälista](https://vikangas.users.cs.helsinki.fi/tsoha/task)
+* [Tehtävän esittelysivu](https://vikangas.users.cs.helsinki.fi/tsoha/task/42)
+* [Tehtävän muokkaussivu](https://vikangas.users.cs.helsinki.fi/tsoha/task/42/edit)

@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+{% import "macros/forms.html" as forms %}
 
 <div class="alert alert-success">
     {{message}}
@@ -7,24 +8,24 @@
 
 <h1>{{task.name}}</h1>
 
-<p>
-    <button class="btn btn-primary active">Merkitse suoritetuksi</button>
-    <br>
-    <br>
-    <a class="btn btn-default btn-sm" href="{{base_path}}/task/{{task.id}}/edit">Muokkaa</a> <button class="btn btn-danger">Poista</button>
-</p>
+<button class="btn btn-primary active">Merkitse suoritetuksi</button>
+<br>
+<br>
+<a class="btn btn-default btn-sm" href="{{base_path}}/task/{{task.id}}/edit">Muokkaa</a> 
+{{forms.destroy_button("#{base_path}/task/#{task.id}/destroy")}}
 
 <ul>
     <li><strong>Tehtävä:</strong> {{task.name}}</li>
     <li><strong>Kategoriat:</strong> Kategoriat</li> <!-- Tähän pitäisi tulla lista tehtävän kategorioista -->
     <li><strong>Kuvaus:</strong> {{task.description}}</li>
     <li><strong>Tärkeysaste:</strong> {{task.priority}}</li>
-    <li><strong>Suoritusstatus:</strong> {% if task.done %}
-        <label class="label label-success">suoritettu
-            {% else %}
-            <label class="label label-danger">kesken
-                {% endif %}</li>
-                <li><strong>Lisäyspäivä:</strong> {{task.added}}</li>
-                <li><strong>Deadline:</strong> {{task.deadline}}</li>
-                </ul>
-                {% endblock %}
+    <li><strong>Suoritusstatus:</strong> 
+        {% if task.done %}
+        <label class="label label-success">suoritettu</label>
+        {% else %}
+        <label class="label label-danger">kesken</label>
+        {% endif %}</li>
+    <li><strong>Lisäyspäivä:</strong> {{task.added}}</li>
+    <li><strong>Deadline:</strong> {{task.deadline}}</li>
+</ul>
+{% endblock %}
