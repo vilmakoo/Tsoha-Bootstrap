@@ -44,6 +44,10 @@ $routes->post('/login', function(){
   UserController::handle_login();
 });
 
+$routes->post('/logout', function(){
+  UserController::logout();
+});
+
 $routes->get('/task', function() {
     HelloWorldController::task_list();
 });
