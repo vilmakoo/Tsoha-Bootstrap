@@ -12,40 +12,68 @@ $routes->get('/task', function() {
     TaskController::index();
 });
 
-$routes->post('/task', function(){
-  TaskController::store();
+$routes->post('/task', function() {
+    TaskController::store();
 });
 
-$routes->get('/task/new', function(){
-  TaskController::create();
+$routes->get('/task/new', function() {
+    TaskController::create();
 });
 
 $routes->get('/task/:id', function($id) {
     TaskController::show($id);
 });
 
-$routes->get('/task/:id/edit', function($id){
-  TaskController::edit($id);
+$routes->get('/task/:id/edit', function($id) {
+    TaskController::edit($id);
 });
 
-$routes->post('/task/:id/edit', function($id){
-  TaskController::update($id);
+$routes->post('/task/:id/edit', function($id) {
+    TaskController::update($id);
 });
 
-$routes->post('/task/:id/destroy', function($id){
-  TaskController::destroy($id);
+$routes->post('/task/:id/destroy', function($id) {
+    TaskController::destroy($id);
 });
 
-$routes->get('/login', function(){
-  UserController::login();
+$routes->get('/login', function() {
+    UserController::login();
 });
 
-$routes->post('/login', function(){
-  UserController::handle_login();
+$routes->post('/login', function() {
+    UserController::handle_login();
 });
 
-$routes->post('/logout', function(){
-  UserController::logout();
+$routes->post('/logout', function() {
+    UserController::logout();
+});
+
+$routes->get('/category', function() {
+    CategoryController::index();
+});
+
+$routes->get('/category/new', function() {
+    CategoryController::create();
+});
+
+$routes->get('/category/:id', function($id) {
+    CategoryController::show($id);
+});
+
+$routes->post('/category', function() {
+    CategoryController::store();
+});
+
+$routes->get('/category/:id/edit', function($id) {
+    CategoryController::edit($id);
+});
+
+$routes->post('/category/:id/edit', function($id) {
+    CategoryController::update($id);
+});
+
+$routes->post('/category/:id/destroy', function($id) {
+    CategoryController::destroy($id);
 });
 
 $routes->get('/task', function() {

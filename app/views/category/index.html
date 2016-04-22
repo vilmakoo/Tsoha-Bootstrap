@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if user_logged_in %}
+<h1>Käyttäjän {{user_logged_in.username}} kategoriat</h1>
+{% endif %}
+
+<p>
+    <a href="{{base_path}}/category/new" class="btn btn-success">Lisää uusi kategoria</a> 
+</p>
+
+<table class="table table-striped table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Nimi</th>
+            <th>Tehtävät</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for category in categories %}
+        <tr>
+            <td><a href="{{base_path}}/category/{{category.id}}">{{category.name}}</td>
+            <td>Tehtävät</td> <!-- tähän pitäis tulla lista kategorian tehtävistä -->
+            <td><a class="btn btn-default btn-sm" href="{{base_path}}/category/{{category.id}}/edit">Muokkaa</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

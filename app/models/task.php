@@ -6,7 +6,7 @@ class Task extends BaseModel {
 
     public function __construct($attributes) {
         parent::__construct($attributes);
-        $this->validators = array('validate_name', 'validate_priority', 'validate_deadline');
+        $this->validators = array('validate_name', 'validate_priority', 'validate_deadline', 'validate_description');
     }
 
     public function validate_name() {
@@ -17,6 +17,9 @@ class Task extends BaseModel {
         if (strlen($this->name) < 3) {
             $errors[] = 'Tehtävän nimen tulee olla vähintään kolme merkkiä pitkä!';
         }
+        if (strlen($this->description) > 50) {
+            $errors[] = 'Nimi saa olla enintään 50 merkkiä pitkä!!';
+        }
         return $errors;
     }
 
@@ -24,6 +27,14 @@ class Task extends BaseModel {
         $errors = array();
         if ($this->priority == null) {
             $errors[] = 'Anna tehtävälle tärkeysaste!';
+        }
+        return $errors;
+    }
+
+    public function validate_description() {
+        $errors = array();
+        if (strlen($this->description) > 400) {
+            $errors[] = 'Kuvaus saa olla enintään 400 merkkiä pitkä!';
         }
         return $errors;
     }
@@ -89,16 +100,46 @@ class Task extends BaseModel {
         $this->id = $row['id'];
     }
 
-    public function update($id) {
-        $query = DB::connection()->prepare('UPDATE Task (name, description, priority, deadline) VALUES (:name, :description, ::priority, :deadline) WHERE id = :id RETURNING id');
-        $query->execute(array('name' => $this->name, 'description' => $this->description, 'priority' => $this->priority, 'deadline' => $this->deadline));
-        
-        $row = $query->fetch();
-        $this->id = $row['id'];
+    public function update($id, $attributes) {
+        $query = DB::connection()->prepare('UPDATE Task SET (name, description, priority, deadline) = (:name, :description, :priority, :deadline) WHERE id = :id');
+        $query->execute(array('id' => $id, 'priority' => $attributes['priority'], 'deadline' => $attributes['deadline'], 'name' => $attributes['name'], 'description' => $attributes['description']));
     }
-    
+
     public function destroy($id) {
         $query = DB::connection()->prepare('DELETE FROM Task WHERE id = :id');
-        $query->execute(array('id' => $this->id));
+        $query->execute(array('id' => $id));
     }
+
+    public function addCategories($task_id, $category_ids) {
+        foreach ($category_ids as $category_id) {
+            $query = DB::connection()->prepare('INSERT INTO TaskCategory (task_id, category_id) VALUES (:task_id, :category_id)');
+            $query->execute(array('task_id' => $task_id, 'category_id' => $category_id));
+        }
+    }
+    
+//    public function removeCategories($task_id, $category_ids) {
+//        foreach ($category_ids as $category_id) {
+//            $query = DB::connection()->prepare('DELETE FROM TaskCategory WHERE task_id = :task_id AND category_id = :category_id');
+//            $query->execute(array('task_id' => $task_id, 'category_id' => $category_id));
+//        }
+//    }
+    
+    public function removeAllCategories($task_id) {
+        $query = DB::connection()->prepare('DELETE FROM TaskCategory WHERE task_id = :task_id');
+        $query->execute(array('task_id' => $task_id));
+    }
+    
+    public function getCategories($task_id) {
+        $query = DB::connection()->prepare('SELECT * FROM TaskCategory WHERE task_id = :task_id');
+        $query->execute(array('task_id' => $task_id));
+        $rows = $query->fetchAll();
+        $categories = array();
+        
+        foreach ($rows as $row) {
+            $categories[] = Category::find($row['category_id']);
+        }
+        
+        return $categories;
+    }
+
 }

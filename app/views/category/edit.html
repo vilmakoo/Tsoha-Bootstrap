@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Muokkaa kategoriaa</h1>
+
+{% if errors %}
+<div class="alert alert-danger">
+    <ul>
+        {% for error in errors %}
+        <li>{{error}}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<form method="post" action="{{base_path}}/category/{{attributes.id}}/edit">
+    <div class="form-group">
+        <label>Nimi</label>
+        <input type="text" name="name" class="form-control" value="{{attributes.name}}">
+    </div>
+    
+    <div class="form-group">
+        <label>Kuvaus</label>
+        <textarea name="description" class="form-control">{{attributes.description}}</textarea>
+    </div>
+    
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Tallenna</button>
+    </div>
+</form>
+{% endblock %}

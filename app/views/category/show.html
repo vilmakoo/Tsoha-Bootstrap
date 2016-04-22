@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+{% import "macros/forms.html" as forms %}
+
+<div class="alert alert-success">
+    {{message}}
+</div>
+
+<h1>{{category.name}}</h1>
+
+<br>
+<br>
+<a class="btn btn-default btn-sm" href="{{base_path}}/category/{{category.id}}/edit">Muokkaa</a> 
+{{forms.destroy_button("#{base_path}/category/#{category.id}/destroy")}}
+
+<ul>
+    <li><strong>Kuvaus:</strong> {{category.description}}</li>
+    <li><strong>Tehtävät, jotka kuuluvat tähän kategoriaan:</strong> </li>
+    {% for task in tasks %}
+    <ul>
+        <li>{{task.name}}</li>
+    </ul>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -16,7 +16,14 @@
 
 <ul>
     <li><strong>Tehtävä:</strong> {{task.name}}</li>
-    <li><strong>Kategoriat:</strong> Kategoriat</li> <!-- Tähän pitäisi tulla lista tehtävän kategorioista -->
+    <li><strong>Kategoriat:</strong></li>
+    
+    {% for category in categories %}
+    <ul>
+        <li>{{category.name}}</li>
+    </ul>
+    {% endfor %}
+
     <li><strong>Kuvaus:</strong> {{task.description}}</li>
     <li><strong>Tärkeysaste:</strong> {{task.priority}}</li>
     <li><strong>Suoritusstatus:</strong> 
