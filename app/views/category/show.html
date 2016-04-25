@@ -8,18 +8,20 @@
 
 <h1>{{category.name}}</h1>
 
-<br>
-<br>
-<a class="btn btn-default btn-sm" href="{{base_path}}/category/{{category.id}}/edit">Muokkaa</a> 
-{{forms.destroy_button("#{base_path}/category/#{category.id}/destroy")}}
+<p>
+    <a class="btn btn-default btn-sm" href="{{base_path}}/category/{{category.id}}/edit">Muokkaa</a> 
+    {{forms.destroy_button("#{base_path}/category/#{category.id}/destroy")}}
+</p>
 
-<ul>
-    <li><strong>Kuvaus:</strong> {{category.description}}</li>
-    <li><strong>Tehtävät, jotka kuuluvat tähän kategoriaan:</strong> </li>
-    {% for task in tasks %}
+<p>
     <ul>
-        <li>{{task.name}}</li>
+        <li><strong>Kuvaus:</strong> {{category.description}}</li>
+        <li><strong>Tehtävät, jotka kuuluvat tähän kategoriaan:</strong> </li>
+        {% for task in tasks %}
+            <ul>
+                <li>{{task.name}}</li>
+            </ul>
+        {% endfor %}
     </ul>
-    {% endfor %}
-</ul>
+</p>
 {% endblock %}

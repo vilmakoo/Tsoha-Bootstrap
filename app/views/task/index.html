@@ -2,11 +2,21 @@
 {% block content %}
 
 {% if user_logged_in %}
-<h1>Käyttäjän {{user_logged_in.username}} muistilista</h1>
+    <h1>Käyttäjän {{user_logged_in.username}} muistilista</h1>
 {% endif %}
 
 <p>
     <a href="{{base_path}}/task/new" class="btn btn-success">Lisää tehtävä</a> 
+</p>
+
+<p>
+    <form method="get" action="" class="form-inline">
+        <div class="form group">
+            <input type="hidden" name="showUndoneTasks" value=true>
+        </div>
+
+       <button type="submit" class="btn btn-default">Näytä ainoastaan keskeneräiset tehtävät</button>
+    </form>
 </p>
 
 <!-- Tehtävät listataan taulukossa -->
@@ -26,13 +36,17 @@
         {% for task in tasks %}
         <tr>
             <td><a href="{{base_path}}/task/{{task.id}}">{{task.name}}</td>
-            <td>Kategoria</td> <!-- tähän pitäis tulla lista tehtävän kategorioista -->
+            <td>
+                {% for category in task.getCategories(task.id) %}
+                    <li>{{category.name}}</li>
+                {% endfor %}
+            </td>
             <td>{{task.priority}}</td>
             <td>
                 {% if task.done %}
-                <label class="label label-success">suoritettu</label>
+                    <label class="label label-success">suoritettu</label>
                 {% else %}
-                <label class="label label-danger">kesken</label>
+                    <label class="label label-danger">kesken</label>
                 {% endif %}
             </td>
             <td>{{task.deadline}}</td>

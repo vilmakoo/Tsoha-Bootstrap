@@ -6,7 +6,15 @@ class TaskController extends BaseController {
         self::check_logged_in();
         $user = self::get_user_logged_in();
         $user_id = $user->id;
-        $tasks = Task::all($user_id);
+
+        $params = $_GET;
+        $options = array('actor_id' => $user_id);
+
+        if (isset($params['showUndoneTasks'])) {
+            $options['showUndoneTasks'] = $params['showUndoneTasks'];
+        }
+
+        $tasks = Task::all($options);
         View::make('task/index.html', array('tasks' => $tasks));
     }
 
@@ -27,11 +35,6 @@ class TaskController extends BaseController {
             'added' => date('Y-m-d'),
             'deadline' => $params['deadline']
         );
-
-//        foreach ($category_ids as $category_id) {
-//            // Lisätään kaikkien kategorioiden id:t taulukkoon
-//            $attributes['category_ids'][] = $category_id;
-//        }
 
         $task = new Task($attributes);
 
@@ -83,7 +86,6 @@ class TaskController extends BaseController {
             'actor_id' => $user_id,
             'name' => $params['name'],
             'description' => $params['description'],
-//            'category_ids' => array(),
             'priority' => $params['priority'],
             'deadline' => $params['deadline']
         );
@@ -100,6 +102,14 @@ class TaskController extends BaseController {
 
             Redirect::to('/task/' . $task->id, array('message' => 'Tehtävän muokkaus onnistui!'));
         }
+    }
+
+    public static function update_status($id) {
+        self::check_logged_in();
+        $task = new Task(array('id' => $id));
+        $task->update_status($task->id);
+
+        Redirect::to('/task/' . $task->id, array('message' => 'Tehtävä merkitty suoritetuksi!'));
     }
 
     public static function destroy($id) {

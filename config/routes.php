@@ -36,6 +36,10 @@ $routes->post('/task/:id/destroy', function($id) {
     TaskController::destroy($id);
 });
 
+$routes->post('/task/:id/update_status', function($id) {
+    TaskController::update_status($id);
+});
+
 $routes->get('/login', function() {
     UserController::login();
 });

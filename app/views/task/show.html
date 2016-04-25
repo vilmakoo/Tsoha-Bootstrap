@@ -8,31 +8,40 @@
 
 <h1>{{task.name}}</h1>
 
-<button class="btn btn-primary active">Merkitse suoritetuksi</button>
-<br>
-<br>
-<a class="btn btn-default btn-sm" href="{{base_path}}/task/{{task.id}}/edit">Muokkaa</a> 
-{{forms.destroy_button("#{base_path}/task/#{task.id}/destroy")}}
+<p>
+    {% if task.done == false %}
+        <form method="post" action="{{base_path}}/task/{{task.id}}/update_status">
+            <button type="submit" class="btn btn-primary active">Merkitse suoritetuksi</button>
+        </form>
+    {% endif %}
+</p>
 
-<ul>
-    <li><strong>Tehtävä:</strong> {{task.name}}</li>
-    <li><strong>Kategoriat:</strong></li>
-    
-    {% for category in categories %}
+<p>
+    <a class="btn btn-default btn-sm" href="{{base_path}}/task/{{task.id}}/edit">Muokkaa</a> 
+    {{forms.destroy_button("#{base_path}/task/#{task.id}/destroy")}}
+</p>
+
+<p>
     <ul>
-        <li>{{category.name}}</li>
-    </ul>
-    {% endfor %}
+        <li><strong>Tehtävä:</strong> {{task.name}}</li>
+        <li><strong>Kategoriat:</strong></li>
 
-    <li><strong>Kuvaus:</strong> {{task.description}}</li>
-    <li><strong>Tärkeysaste:</strong> {{task.priority}}</li>
-    <li><strong>Suoritusstatus:</strong> 
-        {% if task.done %}
-        <label class="label label-success">suoritettu</label>
-        {% else %}
-        <label class="label label-danger">kesken</label>
-        {% endif %}</li>
-    <li><strong>Lisäyspäivä:</strong> {{task.added}}</li>
-    <li><strong>Deadline:</strong> {{task.deadline}}</li>
-</ul>
+        {% for category in categories %}
+            <ul>
+                <li>{{category.name}}</li>
+            </ul>
+        {% endfor %}
+
+        <li><strong>Kuvaus:</strong> {{task.description}}</li>
+        <li><strong>Tärkeysaste:</strong> {{task.priority}}</li>
+        <li><strong>Suoritusstatus:</strong> 
+            {% if task.done %}
+                <label class="label label-success">suoritettu</label>
+            {% else %}
+                <label class="label label-danger">kesken</label>
+            {% endif %}</li>
+        <li><strong>Lisäyspäivä:</strong> {{task.added}}</li>
+        <li><strong>Deadline:</strong> {{task.deadline}}</li>
+    </ul>
+</p>
 {% endblock %}

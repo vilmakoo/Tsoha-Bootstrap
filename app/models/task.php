@@ -47,12 +47,19 @@ class Task extends BaseModel {
         return $errors;
     }
 
-    public static function all($actor_id) {
-        $query = DB::connection()->prepare('SELECT * FROM Task WHERE actor_id = :actor_id');
-        $query->execute(array('actor_id' => $actor_id));
+    public static function all($options) {
+        $query_string = 'SELECT * FROM Task WHERE actor_id = :actor_id';
+        
+        if (isset($options['showUndoneTasks'])) {
+            $query_string .= ' AND done = false';
+        }
+
+        $query = DB::connection()->prepare($query_string);
+        $query->execute(array('actor_id' => $options['actor_id']));
+
         $rows = $query->fetchAll();
         $tasks = array();
-
+//
         foreach ($rows as $row) {
             $tasks[] = new Task(array(
                 'id' => $row['id'],
@@ -104,6 +111,11 @@ class Task extends BaseModel {
         $query = DB::connection()->prepare('UPDATE Task SET (name, description, priority, deadline) = (:name, :description, :priority, :deadline) WHERE id = :id');
         $query->execute(array('id' => $id, 'priority' => $attributes['priority'], 'deadline' => $attributes['deadline'], 'name' => $attributes['name'], 'description' => $attributes['description']));
     }
+    
+    public function update_status($id) {
+        $query = DB::connection()->prepare('UPDATE Task SET done = :done WHERE id = :id');
+        $query->execute(array('id' => $id, 'done' => true));
+    }
 
     public function destroy($id) {
         $query = DB::connection()->prepare('DELETE FROM Task WHERE id = :id');
@@ -116,30 +128,22 @@ class Task extends BaseModel {
             $query->execute(array('task_id' => $task_id, 'category_id' => $category_id));
         }
     }
-    
-//    public function removeCategories($task_id, $category_ids) {
-//        foreach ($category_ids as $category_id) {
-//            $query = DB::connection()->prepare('DELETE FROM TaskCategory WHERE task_id = :task_id AND category_id = :category_id');
-//            $query->execute(array('task_id' => $task_id, 'category_id' => $category_id));
-//        }
-//    }
-    
+
     public function removeAllCategories($task_id) {
         $query = DB::connection()->prepare('DELETE FROM TaskCategory WHERE task_id = :task_id');
         $query->execute(array('task_id' => $task_id));
     }
-    
+
     public function getCategories($task_id) {
         $query = DB::connection()->prepare('SELECT * FROM TaskCategory WHERE task_id = :task_id');
         $query->execute(array('task_id' => $task_id));
         $rows = $query->fetchAll();
         $categories = array();
-        
+
         foreach ($rows as $row) {
             $categories[] = Category::find($row['category_id']);
         }
-        
+
         return $categories;
     }
-
 }
