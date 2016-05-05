@@ -1,7 +1,7 @@
 CREATE TABLE Actor(
   id SERIAL PRIMARY KEY,
-  username varchar(50) UNIQUE NOT NULL,
-  password varchar(50) NOT NULL
+  username varchar(20) UNIQUE NOT NULL,
+  password varchar(20) NOT NULL
 );
 
 CREATE TABLE Task(

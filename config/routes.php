@@ -1,7 +1,7 @@
 <?php
 
 $routes->get('/', function() {
-    TaskController::index();
+    BaseController::frontpage();
 });
 
 $routes->get('/hiekkalaatikko', function() {
@@ -38,6 +38,14 @@ $routes->post('/task/:id/destroy', function($id) {
 
 $routes->post('/task/:id/update_status', function($id) {
     TaskController::update_status($id);
+});
+
+$routes->get('/signin', function() {
+    UserController::signin();
+});
+
+$routes->post('/signin', function() {
+    UserController::handle_signin();
 });
 
 $routes->get('/login', function() {

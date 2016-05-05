@@ -22,7 +22,7 @@
         <label>Kategoriat</label>
         <select class="form-control" name="category_ids[]" multiple="">
             {% for category in categories %}
-            <option value="{{category.id}}">{{category.name}}</option>
+            <option value="{{category.id}}" {% if category.id in tasks_categories %} selected {% endif %}>{{category.name}}</option>
             {% endfor %}
         </select>
     </div>
@@ -35,12 +35,12 @@
     <div class="form-group">
         <label>Tärkeysaste</label>
         <select name="priority">
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
+            <option value="0" {% if attributes.priority == 0 %} selected {% endif %}>0</option>
+            <option value="1" {% if attributes.priority == 1 %} selected {% endif %}>1</option>
+            <option value="2" {% if attributes.priority == 2 %} selected {% endif %}>2</option>
+            <option value="3" {% if attributes.priority == 3 %} selected {% endif %}>3</option>
+            <option value="4" {% if attributes.priority == 4 %} selected {% endif %}>4</option>
+            <option value="5" {% if attributes.priority == 5 %} selected {% endif %}>5</option>
         </select>
     </div>
     

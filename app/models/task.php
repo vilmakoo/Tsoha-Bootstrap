@@ -17,7 +17,7 @@ class Task extends BaseModel {
         if (strlen($this->name) < 3) {
             $errors[] = 'Tehtävän nimen tulee olla vähintään kolme merkkiä pitkä!';
         }
-        if (strlen($this->description) > 50) {
+        if (strlen($this->name) > 50) {
             $errors[] = 'Nimi saa olla enintään 50 merkkiä pitkä!!';
         }
         return $errors;
@@ -53,13 +53,16 @@ class Task extends BaseModel {
         if (isset($options['showUndoneTasks'])) {
             $query_string .= ' AND done = false';
         }
+        if ($options['sortByPriority']) {
+            $query_string .= ' ORDER BY priority DESC';
+        }
 
         $query = DB::connection()->prepare($query_string);
         $query->execute(array('actor_id' => $options['actor_id']));
 
         $rows = $query->fetchAll();
         $tasks = array();
-//
+
         foreach ($rows as $row) {
             $tasks[] = new Task(array(
                 'id' => $row['id'],
@@ -145,5 +148,15 @@ class Task extends BaseModel {
         }
 
         return $categories;
+    }
+    
+    public function getCategoryIds($task_id) {
+        $categories = Task::getCategories($task_id);
+        $category_ids = array();
+        
+        foreach ($categories as $category) {
+            $category_ids[] = $category->id;
+        }
+        return $category_ids;
     }
 }

@@ -8,7 +8,7 @@
 
 * [Linkki sovellukseeni](https://vikangas.users.cs.helsinki.fi/tsoha)
 
-Sisään voi kirjautua käyttäjätunnuksella "testikäyttäjä" ja salasanalla "salasana1".
+Sisään voi kirjautua käyttäjätunnuksella "vilma" ja salasanalla "salasana".
 
 * [Linkki dokumentaatiooni](doc/dokumentaatio.pdf)
 

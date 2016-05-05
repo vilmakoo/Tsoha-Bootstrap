@@ -21,4 +21,9 @@ class BaseController {
         }
     }
 
+    public static function frontpage() {
+        
+        View::make('frontpage.html');
+    }
+
 }

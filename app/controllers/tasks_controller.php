@@ -13,6 +13,8 @@ class TaskController extends BaseController {
         if (isset($params['showUndoneTasks'])) {
             $options['showUndoneTasks'] = $params['showUndoneTasks'];
         }
+        
+        $options['sortByPriority'] = true;
 
         $tasks = Task::all($options);
         View::make('task/index.html', array('tasks' => $tasks));
@@ -70,8 +72,9 @@ class TaskController extends BaseController {
         $task = Task::find($id);
         $user_id = $user->id;
         $categories = Category::all($user_id);
-//        $selected_categories = Task::getCategories($task->id);
-        View::make('task/edit.html', array('attributes' => $task, 'categories' => $categories));
+        $tasks_categories = Task::getCategoryIds($task->id);
+        
+        View::make('task/edit.html', array('attributes' => $task, 'categories' => $categories, 'tasks_categories' => $tasks_categories));
     }
 
     public static function update($id) {
@@ -79,7 +82,11 @@ class TaskController extends BaseController {
         $params = $_POST;
         $user = self::get_user_logged_in();
         $user_id = $user->id;
-        $selected_category_ids = $params['category_ids'];
+        if (isset($params['category_ids'])) {
+            $selected_category_ids = $params['category_ids'];
+        } else {
+            $selected_category_ids = null;
+        }
 
         $attributes = array(
             'id' => $id,
@@ -98,7 +105,10 @@ class TaskController extends BaseController {
         } else {
             $task->update($task->id, $attributes);
             $task->removeAllCategories($task->id);
-            Task::addCategories($id, $selected_category_ids);
+
+            if ($selected_category_ids != null) {
+                Task::addCategories($id, $selected_category_ids);
+            }
 
             Redirect::to('/task/' . $task->id, array('message' => 'Tehtävän muokkaus onnistui!'));
         }

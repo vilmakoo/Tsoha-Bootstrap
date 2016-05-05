@@ -6,6 +6,39 @@ class User extends BaseModel {
 
     public function __construct($attributes) {
         parent::__construct($attributes);
+        $this->validators = array('validate_username', 'validate_password');
+    }
+    
+    public function validate_username() {
+        $errors = array();
+        if ($this->username == '' || $this->username == null) {
+            $errors[] = 'Anna käyttäjänimi!';
+        }
+        if (strlen($this->username) < 4) {
+            $errors[] = 'Käyttäjänimen tulee olla vähintään neljä merkkiä pitkä!';
+        }
+        if (strlen($this->username) > 20) {
+            $errors[] = 'Käyttäjänimi saa olla enintään 20 merkkiä pitkä!';
+        }
+        if (!User::usernameIsUnique($this->username)) {
+            $errors[] = 'Käyttäjänimen tulee olla uniikki!';
+        }
+        return $errors;
+    }
+    
+    public function validate_password() {
+        $errors = array();
+        if ($this->password == '' || $this->password == null) {
+            $errors[] = 'Anna salasana!';
+        }
+        if (strlen($this->password) < 8) {
+            $errors[] = 'Salasanan tulee olla vähintään 8 merkkiä pitkä!';
+        }
+        if (strlen($this->password) > 20) {
+            $errors[] = 'Salasana saa olla enintään 20 merkkiä pitkä!!';
+        }
+        
+        return $errors;
     }
 
     public static function all() {
@@ -29,6 +62,18 @@ class User extends BaseModel {
 
         return null;
     }
+    
+    public static function usernameIsUnique($username) {
+        $query = DB::connection()->prepare('SELECT * FROM Actor WHERE username = :username');
+        $query->execute(array('username' => $username));
+        $row = $query->fetch();
+        
+        if ($row) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
     public function authenticate($username, $password) {
         $query = DB::connection()->prepare('SELECT * FROM Actor WHERE username = :username AND password = :password LIMIT 1');
@@ -47,4 +92,11 @@ class User extends BaseModel {
         }
     }
 
+    public function save() {
+        $query = DB::connection()->prepare('INSERT INTO Actor (username, password) VALUES (:username, :password) RETURNING id');
+        $query->execute(array('username' => $this->username, 'password' => $this->password));
+
+        $row = $query->fetch();
+        $this->id = $row['id'];
+    }
 }
