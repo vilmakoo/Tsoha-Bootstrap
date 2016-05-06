@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
 
+<div class="alert alert-success">
+    {{message}}
+</div>
+
 {% if user_logged_in %}
     <h1>Käyttäjän {{user_logged_in.username}} muistilista</h1>
 {% endif %}

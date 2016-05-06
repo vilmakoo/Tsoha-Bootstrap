@@ -16,7 +16,7 @@ class UserController extends BaseController {
         } else {
             $_SESSION['user'] = $user->id;
 
-            Redirect::to('/', array('message' => 'Tervetuloa takaisin ' . $user->username . '!'));
+            Redirect::to('/task', array('message' => 'Tervetuloa takaisin ' . $user->username . '!'));
         }
     }
 
@@ -25,11 +25,11 @@ class UserController extends BaseController {
         Redirect::to('/login', array('message' => 'Olet kirjautunut ulos!'));
     }
 
-    public static function signin() {
-        View::make('user/signin.html');
+    public static function signup() {
+        View::make('user/signup.html');
     }
     
-    public static function handle_signin() {
+    public static function handle_signup() {
         $params = $_POST;
         
         $attributes = array(
@@ -49,7 +49,7 @@ class UserController extends BaseController {
             $user->save();
             Redirect::to('/login', array('message' => 'Käyttäjä on luotu! Jatka kirjautumalla sisään.'));
         } else {
-            View::make('user/signin.html', array('errors' => $errors, 'username' => $attributes['username']));
+            View::make('user/signup.html', array('errors' => $errors, 'username' => $attributes['username']));
         }
     }
 }

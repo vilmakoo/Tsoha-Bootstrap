@@ -40,12 +40,12 @@ $routes->post('/task/:id/update_status', function($id) {
     TaskController::update_status($id);
 });
 
-$routes->get('/signin', function() {
-    UserController::signin();
+$routes->get('/signup', function() {
+    UserController::signup();
 });
 
-$routes->post('/signin', function() {
-    UserController::handle_signin();
+$routes->post('/signup', function() {
+    UserController::handle_signup();
 });
 
 $routes->get('/login', function() {
