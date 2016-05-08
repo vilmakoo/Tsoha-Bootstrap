@@ -13,7 +13,7 @@ class TaskController extends BaseController {
         if (isset($params['showUndoneTasks'])) {
             $options['showUndoneTasks'] = $params['showUndoneTasks'];
         }
-        
+
         $options['sortByPriority'] = true;
 
         $tasks = Task::all($options);
@@ -25,7 +25,11 @@ class TaskController extends BaseController {
         $params = $_POST;
         $user = self::get_user_logged_in();
         $user_id = $user->id;
-        $category_ids = $params['category_ids'];
+        
+        $category_ids = array();
+        if (isset($params['category_ids'])) {
+            $category_ids = $params['category_ids'];
+        }
 
         $attributes = array(
             'name' => $params['name'],
@@ -73,7 +77,7 @@ class TaskController extends BaseController {
         $user_id = $user->id;
         $categories = Category::all($user_id);
         $tasks_categories = Task::getCategoryIds($task->id);
-        
+
         View::make('task/edit.html', array('attributes' => $task, 'categories' => $categories, 'tasks_categories' => $tasks_categories));
     }
 
